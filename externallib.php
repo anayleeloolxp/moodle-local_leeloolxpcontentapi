@@ -23,8 +23,13 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 require_once($CFG->libdir . "/externallib.php");
 
+/**
+ * API Class for content plugins
+ */
 class local_leeloolxpcontentapi_external extends external_api {
 
     /**
@@ -41,13 +46,14 @@ class local_leeloolxpcontentapi_external extends external_api {
 
     /**
      * Sync course from Leeloo to Moodle
+     * @param string $contentplugin contentplugin
      * @return string welcome message
      */
     public static function content_plugins_sync($contentplugin = '') {
 
         global $CFG;
-        //Parameter validation
-        //REQUIRED
+        // Parameter validation
+        // REQUIRED
         $params = self::validate_parameters(
             self::content_plugins_sync_parameters(),
             array(
@@ -55,9 +61,9 @@ class local_leeloolxpcontentapi_external extends external_api {
             )
         );
 
-        if( $contentplugin == 'thinkblue' ){
+        if ($contentplugin == 'thinkblue') {
             $path = $CFG->dirroot . '/theme/thinkblue/locallib.php';
-        }else{
+        } else {
             $path = $CFG->dirroot . '/blocks/' . $contentplugin . '/locallib.php';
         }
 
@@ -103,13 +109,13 @@ class local_leeloolxpcontentapi_external extends external_api {
             updateconftop_cats();
         } else if ($contentplugin == 'tb_up_courses') {
             updateconfup_courses();
-        } else if ($contentplugin == 'thinkblue'){
+        } else if ($contentplugin == 'thinkblue') {
             updateconfthinkblue();
-        } else if ($contentplugin == 'leeloo_paid_courses'){
+        } else if ($contentplugin == 'leeloo_paid_courses') {
             updateconfpaid_courses();
-        } else if ($contentplugin == 'leeloo_subscriptions'){
+        } else if ($contentplugin == 'leeloo_subscriptions') {
             updateconfleeloo_subscriptions();
-        } else if ($contentplugin == 'leeloo_products'){
+        } else if ($contentplugin == 'leeloo_products') {
             updateconfleeloo_products();
         } else {
             return '0';

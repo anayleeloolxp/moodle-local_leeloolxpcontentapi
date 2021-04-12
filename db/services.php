@@ -23,6 +23,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 // We defined the web service functions to install.
 $functions = array(
     'local_leeloolxpcontentapi_content_plugins_sync' => array(

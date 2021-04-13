@@ -1,2 +1,18 @@
-Leeloo LXP Content API plugin for Moodle
-------------------------------------------
+# Leeloo LXP Content API plugin for Moodle
+=========================
+This plugin handles the authenticated API calls to sync the content plugins data from Leeloo LXP to Moodle LMS. 
+Whenever a setting is updated in the menu item called "Leeloo LXP theme" under the Leeloo LXP installation, this plugin will update the data in Moodle LMS.
+
+# Instructions
+
+## Installation
+
+Simply go to Moodle plugins directory and install the Content API plugin like any other.
+Setup
+1. Go to Admin > Plugins > Web services > Manage protocols
+2. Enable XML-RPC protocol
+3. Go to Admin > Plugins > Web services > Manage tokens
+4. Click on "Add" to add a token for this Content Plugin
+5. Select Moodle Admin as user and Leeloo LXP Content API as service and Save
+6. Copy the token and place it in Settings under Leeloo LXP Installation
+7. All set, Now whenever a setting is updated in the menu item called "Leeloo LXP theme" under the Leeloo LXP installation, this plugin will update the data in Moodle LMS.

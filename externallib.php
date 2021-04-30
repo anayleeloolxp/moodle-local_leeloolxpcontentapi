@@ -75,30 +75,22 @@ class local_leeloolxpcontentapi_external extends external_api {
 
         require_once($path);
 
-        if ($contentplugin == 'tb_a_courses') {
-            updateconfa_courses();
-        } else if ($contentplugin == 'tb_blog') {
+        if ($contentplugin == 'tb_blog') {
             updateconfblog();
-        } else if ($contentplugin == 'tb_c_courses') {
-            updateconfc_courses();
+        } else if ($contentplugin == 'tb_courses') {
+            updateconfcourses();
         } else if ($contentplugin == 'tb_clients') {
             updateconfclients();
         } else if ($contentplugin == 'tb_course_nav') {
             updateconfcourse_nav();
-        } else if ($contentplugin == 'tb_f_courses') {
-            updateconff_courses();
         } else if ($contentplugin == 'tb_faq') {
             updateconffaq();
         } else if ($contentplugin == 'tb_headings') {
             updateconfheadings();
-        } else if ($contentplugin == 'tb_in_courses') {
-            updateconfin_courses();
         } else if ($contentplugin == 'tb_latestentry') {
             updateconflatestentry();
         } else if ($contentplugin == 'tb_m_slots') {
             updateconfm_slots();
-        } else if ($contentplugin == 'tb_my_courses') {
-            updateconfmy_courses();
         } else if ($contentplugin == 'tb_slider') {
             updateconfslider();
         } else if ($contentplugin == 'tb_teachers') {
@@ -107,8 +99,6 @@ class local_leeloolxpcontentapi_external extends external_api {
             updateconftestimonials();
         } else if ($contentplugin == 'tb_top_cats') {
             updateconftop_cats();
-        } else if ($contentplugin == 'tb_up_courses') {
-            updateconfup_courses();
         } else if ($contentplugin == 'thinkblue') {
             updateconfthinkblue();
         } else if ($contentplugin == 'leeloo_paid_courses') {

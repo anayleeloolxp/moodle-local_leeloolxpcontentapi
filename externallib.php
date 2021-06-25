@@ -48,13 +48,12 @@ class local_leeloolxpcontentapi_external extends external_api {
     /**
      * Sync course from Leeloo to Moodle
      * @param string $contentplugin contentplugin
+     * @param string $baseemail baseemail
      * @return string welcome message
      */
     public static function content_plugins_sync($contentplugin = '', $baseemail = '') {
 
         global $CFG;
-        // Parameter validation
-        // REQUIRED
         $params = self::validate_parameters(
             self::content_plugins_sync_parameters(),
             array(

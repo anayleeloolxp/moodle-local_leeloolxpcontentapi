@@ -25,9 +25,9 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version = 2021043007;
+$plugin->version = 2021062501;
 $plugin->requires = 2014111001;
 $plugin->cron = 0;
-$plugin->release = '1.0.1';
+$plugin->release = '1.0.2';
 $plugin->maturity = MATURITY_STABLE;
 $plugin->component = 'local_leeloolxpcontentapi';

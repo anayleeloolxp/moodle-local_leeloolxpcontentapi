@@ -40,6 +40,7 @@ class local_leeloolxpcontentapi_external extends external_api {
         return new external_function_parameters(
             array(
                 'content_plugins_sync' => new external_value(PARAM_RAW, 'Plugin Name', VALUE_DEFAULT, null),
+                'baseemail' => new external_value(PARAM_RAW, 'Base Email', VALUE_DEFAULT, null),
             )
         );
     }
@@ -49,7 +50,7 @@ class local_leeloolxpcontentapi_external extends external_api {
      * @param string $contentplugin contentplugin
      * @return string welcome message
      */
-    public static function content_plugins_sync($contentplugin = '') {
+    public static function content_plugins_sync($contentplugin = '', $baseemail = '') {
 
         global $CFG;
         // Parameter validation
@@ -58,10 +59,11 @@ class local_leeloolxpcontentapi_external extends external_api {
             self::content_plugins_sync_parameters(),
             array(
                 'content_plugins_sync' => $contentplugin,
+                'baseemail' => $baseemail,
             )
         );
 
-        if ($contentplugin == 'thinkblue') {
+        if ($contentplugin == 'thinkblue' || $contentplugin == 'gamisync') {
             $path = $CFG->dirroot . '/theme/thinkblue/locallib.php';
         } else {
             $path = $CFG->dirroot . '/blocks/' . $contentplugin . '/locallib.php';
@@ -107,6 +109,8 @@ class local_leeloolxpcontentapi_external extends external_api {
             updateconfleeloo_subscriptions();
         } else if ($contentplugin == 'leeloo_products') {
             updateconfleeloo_products();
+        } else if ($contentplugin == 'gamisync') {
+            theme_thinkblue_gamisync($baseemail);
         } else {
             return '0';
         }

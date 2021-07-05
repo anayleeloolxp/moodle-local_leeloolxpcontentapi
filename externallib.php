@@ -77,37 +77,37 @@ class local_leeloolxpcontentapi_external extends external_api {
         require_once($path);
 
         if ($contentplugin == 'tb_blog') {
-            updateconfblog();
+            block_tb_blog_updateconf();
         } else if ($contentplugin == 'tb_courses') {
-            updateconfcourses();
+            block_tb_courses_updateconf();
         } else if ($contentplugin == 'tb_clients') {
-            updateconfclients();
+            block_tb_clients_updateconf();
         } else if ($contentplugin == 'tb_course_nav') {
-            updateconfcourse_nav();
+            block_tb_course_nav_updateconf();
         } else if ($contentplugin == 'tb_faq') {
-            updateconffaq();
+            block_tb_faq_updateconf();
         } else if ($contentplugin == 'tb_headings') {
-            updateconfheadings();
+            block_tb_headings_updateconf();
         } else if ($contentplugin == 'tb_latestentry') {
-            updateconflatestentry();
+            block_tb_latestentry_updateconf();
         } else if ($contentplugin == 'tb_m_slots') {
-            updateconfm_slots();
+            block_tb_m_slots_updateconf();
         } else if ($contentplugin == 'tb_slider') {
-            updateconfslider();
+            block_tb_slider_updateconf();
         } else if ($contentplugin == 'tb_teachers') {
-            updateconfteachers();
+            block_tb_teachers_updateconf();
         } else if ($contentplugin == 'tb_testimonials') {
-            updateconftestimonials();
+            block_tb_testimonials_updateconf();
         } else if ($contentplugin == 'tb_top_cats') {
-            updateconftop_cats();
+            block_tb_top_cats_updateconf();
         } else if ($contentplugin == 'thinkblue') {
-            updateconfthinkblue();
+            theme_thinkblue_updateconf();
         } else if ($contentplugin == 'leeloo_paid_courses') {
-            updateconfpaid_courses();
+            block_leeloo_paid_courses_updateconf();
         } else if ($contentplugin == 'leeloo_subscriptions') {
-            updateconfleeloo_subscriptions();
+            block_leeloo_subscriptions_updateconf();
         } else if ($contentplugin == 'leeloo_products') {
-            updateconfleeloo_products();
+            block_leeloo_products_updateconf();
         } else if ($contentplugin == 'gamisync') {
             theme_thinkblue_gamisync($baseemail);
         } else {

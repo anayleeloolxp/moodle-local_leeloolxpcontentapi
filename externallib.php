@@ -67,6 +67,8 @@ class local_leeloolxpcontentapi_external extends external_api {
             $path = $CFG->dirroot . '/theme/thinkblue/locallib.php';
         } else if ($contentplugin == 'mod_leeloolxpvimeo') {
             $path = $CFG->dirroot . '/mod/leeloolxpvimeo/locallib.php';
+        } else if ($contentplugin == 'mod_leeloocert') {
+            $path = $CFG->dirroot . '/mod/leeloocert/locallib.php';
         } else if ($contentplugin == 'mod_leeloolxpcert') {
             $path = $CFG->dirroot . '/mod/leeloolxpcert/locallib.php';
         } else {
@@ -117,6 +119,8 @@ class local_leeloolxpcontentapi_external extends external_api {
             theme_thinkblue_gamisync($baseemail);
         } else if ($contentplugin == 'mod_leeloolxpvimeo') {
             leeloolxpvimeo_updateconf();
+        } else if ($contentplugin == 'mod_leeloocert') {
+            leeloocert_updateconf();
         } else if ($contentplugin == 'mod_leeloolxpcert') {
             leeloolxpcert_updateconf();
         } else {

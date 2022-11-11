@@ -91,6 +91,8 @@ class local_leeloolxpcontentapi_external extends external_api {
             block_tb_clients_updateconf();
         } else if ($contentplugin == 'tb_course_nav') {
             block_tb_course_nav_updateconf();
+        } else if ($contentplugin == 'tb_leeloolxpvimeo_nav') {
+            block_tb_leeloolxpvimeo_nav_updateconf();
         } else if ($contentplugin == 'tb_faq') {
             block_tb_faq_updateconf();
         } else if ($contentplugin == 'tb_headings') {

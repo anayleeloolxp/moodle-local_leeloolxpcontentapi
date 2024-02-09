@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Plugin strings are defined here.
+ * Plugin administration pages are defined here.
  *
  * @package     local_leeloolxpcontentapi
  * @copyright  2024 Leeloo LXP (https://leeloolxp.com)
@@ -25,10 +25,23 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Leeloo LXP Mootools';
-$string['setting_title'] = 'Leeloo LXP Mootools';
+if ($hassiteconfig) {
 
-$string['enable'] = 'Add Leeloo LXP Mootools';
-$string['enablehelp'] = 'Add Leeloo LXP Mootools drawer';
+    require_once($CFG->dirroot . '/local/leeloolxpcontentapi/classes/leeloo_admin_setting_configcheckbox.php');
 
-$string['privacy:metadata'] = 'The Leeloo LXP Mootools plugin does not store data itself.';
+    $settings = new admin_settingpage('local_leeloolxpcontentapi', get_string('setting_title', 'local_leeloolxpcontentapi'));
+
+    $ADMIN->add('localplugins', $settings);
+
+    $setting = new admin_setting_configcheckbox(
+        'local_leeloolxpcontentapi/enable',
+        get_string('enable', 'local_leeloolxpcontentapi'),
+        get_string('enablehelp', 'local_leeloolxpcontentapi'),
+        1
+    );
+
+    $settings->add($setting);
+
+    $setting = new leeloo_admin_setting_configtext('local_leeloolxpcontentapi/leeloourl', '', '', '');
+    $settings->add($setting);
+}

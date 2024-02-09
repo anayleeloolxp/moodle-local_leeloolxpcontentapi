@@ -15,34 +15,23 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * External functions and service definitions.
+ * Events Registration
  *
  * @package local_leeloolxpcontentapi
- * @copyright  2020 Leeloo LXP (https://leeloolxp.com)
+ * @copyright  2024 Leeloo LXP (https://leeloolxp.com)
  * @author Leeloo LXP <info@leeloolxp.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+defined('MOODLE_INTERNAL') || die();
+$observers = array(
 
-defined('MOODLE_INTERNAL') || die;
-
-// We defined the web service functions to install.
-$functions = array(
-    'local_leeloolxpcontentapi_content_plugins_sync' => array(
-        'classname' => 'local_leeloolxpcontentapi_external',
-        'methodname' => 'content_plugins_sync',
-        'classpath' => 'local/leeloolxpcontentapi/externallib.php',
-        'description' => 'Sync Content Plugins Data.',
-        'type' => 'write',
+    array(
+        'eventname' => '\core\event\user_loggedin',
+        'callback' => '\local_leeloolxpcontentapi\observer::user_loggedin',
     ),
-);
 
-// We define the services to install as pre-build services. A pre-build service is not editable by administrator.
-$services = array(
-    'Leeloo LXP Content API' => array(
-        'functions' => array(
-            'local_leeloolxpcontentapi_content_plugins_sync',
-        ),
-        'restrictedusers' => 0,
-        'enabled' => 1,
+    array(
+        'eventname' => '\core\event\user_loggedout',
+        'callback' => '\local_leeloolxpcontentapi\observer::user_loggedout',
     ),
 );

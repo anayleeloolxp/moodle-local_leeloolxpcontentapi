@@ -15,20 +15,31 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Plugin strings are defined here.
+ * Privacy Subsystem implementation for local_leeloolxpcontentapi.
  *
- * @package     local_leeloolxpcontentapi
+ * @package   local_leeloolxpcontentapi
  * @copyright  2024 Leeloo LXP (https://leeloolxp.com)
  * @author     Leeloo LXP <info@leeloolxp.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+namespace local_leeloolxpcontentapi\privacy;
 
-$string['pluginname'] = 'Leeloo LXP Mootools';
-$string['setting_title'] = 'Leeloo LXP Mootools';
+/**
+ * Privacy Subsystem for local_leeloolxpcontentapi implementing null_provider.
+ *
+ * @copyright  2024 Leeloo LXP (https://leeloolxp.com)
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class provider implements \core_privacy\local\metadata\null_provider {
 
-$string['enable'] = 'Add Leeloo LXP Mootools';
-$string['enablehelp'] = 'Add Leeloo LXP Mootools drawer';
-
-$string['privacy:metadata'] = 'The Leeloo LXP Mootools plugin does not store data itself.';
+    /**
+     * Get the language string identifier with the component's language
+     * file to explain why this plugin stores no data.
+     *
+     * @return  string
+     */
+    public static function get_reason(): string {
+        return 'privacy:metadata';
+    }
+}

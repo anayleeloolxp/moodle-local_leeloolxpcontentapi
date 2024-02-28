@@ -28,7 +28,7 @@ namespace local_leeloolxpcontentapi;
 use curl;
 
 /**
- * Observer to login/logout user to Leeloo as they login/logout on moodle.
+ * Plugin Observer to loggin/logout user in Leeloo as well.
  */
 class observer {
     /**
@@ -55,7 +55,6 @@ class observer {
                 require_once($CFG->libdir . '/filelib.php');
 
                 $curl = new curl;
-
                 $url = $mootoolsleeloourl . '/api/login';
 
                 $payload = array(
@@ -65,12 +64,10 @@ class observer {
                 );
 
                 $jsonPayload = json_encode($payload);
-
                 $headers = array('Content-Type: application/json');
-
                 $result = $curl->post($url, $jsonPayload, array('CURLOPT_HTTPHEADER' => $headers));
-
                 $res_arr = json_decode($result);
+
                 if ($res_arr->status == 'success') {
                     $mootools_token = $res_arr->token;
                     setcookie('mootools_token', $mootools_token, time() + (86400 * 30), '/');
@@ -95,6 +92,7 @@ class observer {
      * @param \core\event\user_loggedout $events
      */
     public static function user_loggedout(\core\event\user_loggedout $event) {
+
         $mootoolsenable = get_config('local_leeloolxpcontentapi')->enable;
         $mootoolsleeloourl = get_config('local_leeloolxpcontentapi')->leeloourl;
 
@@ -107,15 +105,10 @@ class observer {
                 require_once($CFG->libdir . '/filelib.php');
 
                 $curl = new curl;
-
                 $url = $mootoolsleeloourl . '/api/logout';
-
                 $payload = array();
-
                 $jsonPayload = json_encode($payload);
-
                 $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $mootools_token);
-
                 $curl->post($url, $jsonPayload, array('CURLOPT_HTTPHEADER' => $headers));
 
                 setcookie('mootools_token', '', time() - 3600, '/');

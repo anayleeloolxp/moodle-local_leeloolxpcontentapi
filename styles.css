@@ -3,6 +3,12 @@
     bottom: 20px;
     right: 20px;
     z-index: 9999;
+    background: #40D7AE;
+    border: 0px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
 }
 
 .local_leeloolxpcontentapi_wrapper {
@@ -50,4 +56,13 @@ iframe.leeloolxpcontentapi_frame {
 #local_leeloolxpcontentapi_wrapper_close {
     cursor: pointer;
     display: none;
+}
+
+#local_leeloolxpcontentapi_button i {
+    margin: 0;
+    font-size: 26px;
+    line-height: 1;
+    width: auto;
+    height: auto;
+    color: #ffffff;
 }

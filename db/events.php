@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Events Registration
+ * Events for Login/Logout
  *
  * @package local_leeloolxpcontentapi
  * @copyright  2024 Leeloo LXP (https://leeloolxp.com)

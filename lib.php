@@ -40,60 +40,36 @@ function local_leeloolxpcontentapi_before_footer() {
         global $USER;
         if (isloggedin() && !is_siteadmin($USER)) {
 
-            $userAgent = strtolower($_SERVER['HTTP_USER_AGENT']);
+            global $PAGE, $CFG;
 
-            // Detect Browser
-            if (strpos($userAgent, 'firefox') !== false) {
-                $browser = 'Firefox';
-            } elseif (strpos($userAgent, 'chrome') !== false) {
-                $browser = 'Chrome';
-            } elseif (strpos($userAgent, 'safari') !== false) {
-                $browser = 'Safari';
-            } elseif (strpos($userAgent, 'msie') !== false || strpos($userAgent, 'trident') !== false) {
-                $browser = 'Internet Explorer';
-            } else {
-                $browser = 'Other/Unknown';
-            }
-
-            // Detect Operating System
-            if (strpos($userAgent, 'win') !== false) {
-                $os = 'Windows';
-            } elseif (strpos($userAgent, 'mac') !== false) {
-                $os = 'MacOS';
-            } elseif (strpos($userAgent, 'linux') !== false) {
-                $os = 'Linux';
-            } elseif (strpos($userAgent, 'android') !== false) {
-                $os = 'Android';
-            } elseif (strpos($userAgent, 'iphone') !== false) {
-                $os = 'iOS';
-            } else {
-                $os = 'Other/Unknown';
-            }
-
-            global $PAGE;
-
-            // Get the context of the current page
             $context = $PAGE->context;
 
-            // Check if the context level is of a module (activity/resource)
             if ($context && $context->contextlevel == CONTEXT_MODULE) {
 
-                $cm = get_coursemodule_from_id('', $context->instanceid, 0, false, MUST_EXIST);
+                $cmid = $context->instanceid;
 
-                $modname = $cm->modname;
-                $courseId = $cm->course;
-                $arid = $context->instanceid;
-            } else {
-                $arid = 0;
-                $courseId = 0;
-                $modname = '';
+                require_once($CFG->libdir . '/filelib.php');
+                $curl = new curl;
+                $url = $mootoolsleeloourl . '/api/check_vive_exists';
+                $payload = array(
+                    'cmid' => $cmid,
+                );
+                $jsonPayload = json_encode($payload);
+                $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $mootoolstoken);
+                $result = $curl->post($url, $jsonPayload, array('CURLOPT_HTTPHEADER' => $headers));
+                $res_arr = json_decode($result);
+
+                if (isset($res_arr->status) && isset($res_arr->status) != '') {
+                    if ($res_arr->status == 'success') {
+
+                        echo '<div id="leeloolxpcontentapi-js-vars" data-mootoolsleeloourl="' . base64_encode($mootoolsleeloourl) . '" data-mootoolstoken="' . $mootoolstoken . '" data-cmid="' . $cmid . '" data-mootoolsloginresponse="' . base64_encode($mootoolsloginresponse) . '"></div>';
+
+                        $PAGE->requires->js(new moodle_url('/local/leeloolxpcontentapi/js/local_leeloolxpcontentapi.js'));
+                        echo '<button id="local_leeloolxpcontentapi_button"><i class="icon fa fa-phone fa-fw"></i></button>';
+                        echo '<div class="local_leeloolxpcontentapi_wrapper"><div id="local_leeloolxpcontentapi_wrapper_close">X</div><div id="local_leeloolxpcontentapi_frame"></div></div>';
+                    }
+                }
             }
-
-            echo '<div id="leeloolxpcontentapi-js-vars" data-mootoolsleeloourl="' . base64_encode($mootoolsleeloourl) . '" data-mootoolstoken="' . $mootoolstoken . '" data-arid="' . $arid . '" data-courseid="' . $courseId . '" data-modname="' . $modname . '" data-os="' . $os . '" data-browser="' . $browser . '" data-mootoolsloginresponse="' . base64_encode($mootoolsloginresponse) . '"></div>';
-
-            $PAGE->requires->js(new moodle_url('/local/leeloolxpcontentapi/js/local_leeloolxpcontentapi.js'));
-            echo '<button id="local_leeloolxpcontentapi_button">Open MooTools</button>';
-            echo '<div class="local_leeloolxpcontentapi_wrapper"><div id="local_leeloolxpcontentapi_wrapper_close">X</div><div id="local_leeloolxpcontentapi_frame"></div></div>';
         }
     }
 }

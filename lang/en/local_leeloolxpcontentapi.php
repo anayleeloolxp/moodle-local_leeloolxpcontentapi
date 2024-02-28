@@ -25,10 +25,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Leeloo LXP Mootools';
-$string['setting_title'] = 'Leeloo LXP Mootools';
+$string['pluginname'] = 'Leeloo LXP Content API Plugin';
+$string['setting_title'] = 'Leeloo LXP Content API Plugin';
 
-$string['enable'] = 'Add Leeloo LXP Mootools';
-$string['enablehelp'] = 'Add Leeloo LXP Mootools drawer';
+$string['enable'] = 'Add Leeloo LXP drawer';
+$string['enablehelp'] = 'Add Leeloo LXP drawer';
 
-$string['privacy:metadata'] = 'The Leeloo LXP Mootools plugin does not store data itself.';
+$string['privacy:metadata'] = 'The Leeloo LXP Content API plugin does not store data itself.';

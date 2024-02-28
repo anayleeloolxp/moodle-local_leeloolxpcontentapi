@@ -15,7 +15,6 @@ class leeloo_admin_setting_configtext extends admin_setting_configtext {
         require_once($CFG->libdir . '/filelib.php');
 
         $curl = new curl;
-
         $url = 'https://mootools.epic1academy.com/api/get_install.php';
 
         $payload = array(
@@ -23,11 +22,8 @@ class leeloo_admin_setting_configtext extends admin_setting_configtext {
         );
 
         $jsonPayload = json_encode($payload);
-
         $headers = array('Content-Type: application/json');
-
         $result = $curl->post($url, $jsonPayload, array('CURLOPT_HTTPHEADER' => $headers));
-
         $res_arr = json_decode($result);
 
         if (isset($res_arr->status) && isset($res_arr->status) != '') {

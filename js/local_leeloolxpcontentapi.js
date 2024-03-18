@@ -17,9 +17,13 @@ require(["jquery"], function ($) {
         let mootoolsresponse = $("#leeloolxpcontentapi-js-vars").data("mootoolsloginresponse");
 
         let cmid = $("#leeloolxpcontentapi-js-vars").data("cmid");
+        let sectionid = $("#leeloolxpcontentapi-js-vars").data("sectionid");
+        let courseid = $("#leeloolxpcontentapi-js-vars").data("courseid");
 
         var mootoolsresponseDe = JSON.parse(atob(mootoolsresponse));
         mootoolsresponseDe.cmid = cmid;
+        mootoolsresponseDe.sectionid = sectionid;
+        mootoolsresponseDe.courseid = courseid;
         mootoolsresponseDe.baseurl = mootoolsleeloourldecoded + '/';
 
         var mootoolsresponseUp = btoa(JSON.stringify(mootoolsresponseDe));

@@ -48,11 +48,18 @@ function local_leeloolxpcontentapi_before_footer() {
 
                 $cmid = $context->instanceid;
 
+                $module = get_coursemodule_from_id('', $cmid, 0, false, MUST_EXIST);
+
+                $sectionid = $module->section;
+                $courseid = $module->course;
+
                 require_once($CFG->libdir . '/filelib.php');
                 $curl = new curl;
                 $url = $mootoolsleeloourl . '/api/check_vive_exists';
                 $payload = array(
                     'cmid' => $cmid,
+                    'sectionid' => $sectionid,
+                    'courseid' => $courseid,
                 );
                 $jsonPayload = json_encode($payload);
                 $headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $mootoolstoken);
@@ -62,7 +69,7 @@ function local_leeloolxpcontentapi_before_footer() {
                 if (isset($res_arr->status) && isset($res_arr->status) != '') {
                     if ($res_arr->status == 'success') {
 
-                        echo '<div id="leeloolxpcontentapi-js-vars" data-mootoolsleeloourl="' . base64_encode($mootoolsleeloourl) . '" data-mootoolstoken="' . $mootoolstoken . '" data-cmid="' . $cmid . '" data-mootoolsloginresponse="' . base64_encode($mootoolsloginresponse) . '"></div>';
+                        echo '<div id="leeloolxpcontentapi-js-vars" data-mootoolsleeloourl="' . base64_encode($mootoolsleeloourl) . '" data-mootoolstoken="' . $mootoolstoken . '" data-cmid="' . $cmid . '" data-sectionid="' . $sectionid . '" data-courseid="' . $courseid . '" data-mootoolsloginresponse="' . base64_encode($mootoolsloginresponse) . '"></div>';
 
                         $PAGE->requires->js(new moodle_url('/local/leeloolxpcontentapi/js/local_leeloolxpcontentapi.js'));
                         echo '<button id="local_leeloolxpcontentapi_button"><i class="icon fa fa-phone fa-fw"></i></button>';

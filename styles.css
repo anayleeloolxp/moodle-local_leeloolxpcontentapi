@@ -27,6 +27,7 @@
 .local_leeloolxpcontentapi_wrapper.open {
     width: 33%;
     max-width: 615px;
+    min-width: 530px;
 }
 
 div#local_leeloolxpcontentapi_wrapper_close {

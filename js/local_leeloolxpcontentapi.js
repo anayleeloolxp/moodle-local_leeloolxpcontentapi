@@ -31,8 +31,13 @@ require(["jquery"], function ($) {
 			let cmid = $("#leeloolxpcontentapi-js-vars").data("cmid");
 			let sectionid = $("#leeloolxpcontentapi-js-vars").data("sectionid");
 			let courseid = $("#leeloolxpcontentapi-js-vars").data("courseid");
+			let lang = $("#leeloolxpcontentapi-js-vars").data("lang");
 
 			var mootoolsresponseDe = JSON.parse(atob(mootoolsresponse));
+			if( lang != '' ){
+				mootoolsresponseDe.lang = lang;
+			}
+
 			mootoolsresponseDe.cmid = cmid;
 			mootoolsresponseDe.sectionid = sectionid;
 			mootoolsresponseDe.courseid = courseid;

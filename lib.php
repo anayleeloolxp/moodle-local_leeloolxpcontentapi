@@ -37,7 +37,7 @@ function local_leeloolxpcontentapi_before_footer() {
     }
 
     if ($mootoolsenable && $mootoolsleeloourl && $mootoolstoken) {
-        global $USER;
+        global $USER, $DB;
         if (isloggedin() && !is_siteadmin($USER)) {
 
             global $PAGE, $CFG;
@@ -69,7 +69,20 @@ function local_leeloolxpcontentapi_before_footer() {
                 if (isset($res_arr->status) && isset($res_arr->status) != '') {
                     if ($res_arr->status == 'success') {
 
-                        echo '<div id="leeloolxpcontentapi-js-vars" data-mootoolsleeloourl="' . base64_encode($mootoolsleeloourl) . '" data-mootoolstoken="' . $mootoolstoken . '" data-cmid="' . $cmid . '" data-sectionid="' . $sectionid . '" data-courseid="' . $courseid . '" data-mootoolsloginresponse="' . base64_encode($mootoolsloginresponse) . '"></div>';
+                        $user_lang = $DB->get_record_sql(
+                            'SELECT u.lang AS preferred_language
+                             FROM {user} u
+                             WHERE u.id = :userid',
+                            ['userid' => $USER->id]
+                        );
+
+                        if ($user_lang) {
+                            $preferred_language = $user_lang->preferred_language;
+                        } else {
+                            $preferred_language = "";
+                        }
+
+                        echo '<div id="leeloolxpcontentapi-js-vars" data-mootoolsleeloourl="' . base64_encode($mootoolsleeloourl) . '" data-mootoolstoken="' . $mootoolstoken . '" data-lang="' . $preferred_language . '" data-cmid="' . $cmid . '" data-sectionid="' . $sectionid . '" data-courseid="' . $courseid . '" data-mootoolsloginresponse="' . base64_encode($mootoolsloginresponse) . '"></div>';
 
                         $PAGE->requires->js(new moodle_url('/local/leeloolxpcontentapi/js/local_leeloolxpcontentapi.js'));
                         echo '<button id="local_leeloolxpcontentapi_button"><i class="icon fa fa-phone fa-fw"></i></button>';

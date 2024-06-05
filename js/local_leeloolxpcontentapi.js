@@ -16,9 +16,18 @@ require(["jquery"], function ($) {
 		}
   	});
 
+	window.addEventListener('message', function(event) {
+		console.log(event.data);
+		if(event.data == 'scene_ready'){
+			setTimeout(function() {
+				$('#local_leeloolxpcontentapi_button').addClass('active');
+			}, 2000);
+		}
+	});
+
   	$(document).ready(function () {
 
-		if( !$('.leeloolxpcontentapi_frame').length ){
+		if( !$('.leeloolxpcontentapi_frame').length){
 			let mootoolsleeloourl = $("#leeloolxpcontentapi-js-vars").data(
 				"mootoolsleeloourl"
 			);
@@ -46,7 +55,7 @@ require(["jquery"], function ($) {
 			var mootoolsresponseUp = btoa(JSON.stringify(mootoolsresponseDe));
 
 			leeloolxpssourl =
-				"https://spock.leeloolxp.com?mootoolsleeloourl=" +
+				"https://ivx.wespher.com?mootoolsleeloourl=" +
 				mootoolsleeloourl +
 				"&mootoolstoken=" +
 				mootoolstoken +
@@ -61,27 +70,30 @@ require(["jquery"], function ($) {
 
     	$("#local_leeloolxpcontentapi_button").click(function () {
 
-			var $wrapper = $(".local_leeloolxpcontentapi_wrapper");
+			if( $(this).hasClass("active") ){
+				var $wrapper = $(".local_leeloolxpcontentapi_wrapper");
 
-			// Toggle the "open" class on the wrapper
-			$wrapper.toggleClass("open");
+				// Toggle the "open" class on the wrapper
+				$wrapper.toggleClass("open");
 
-			// Check if the wrapper has the "open" class
-			if ($wrapper.hasClass("open")) {
+				// Check if the wrapper has the "open" class
+				if ($wrapper.hasClass("open")) {
 
-				var message = 'drawer_open';
-				var iframe = $(".leeloolxpcontentapi_frame")[0];
+					var message = 'drawer_open';
+					var iframe = $(".leeloolxpcontentapi_frame")[0];
 
-				// Check if the iframe is loaded
-				if (iframe.contentWindow) {
-					iframe.contentWindow.postMessage(message, "*");
-				} else {
-					// If iframe is not loaded, wait for it to load
-					$(iframe).on('load', function() {
+					// Check if the iframe is loaded
+					if (iframe.contentWindow) {
 						iframe.contentWindow.postMessage(message, "*");
-					});
+					} else {
+						// If iframe is not loaded, wait for it to load
+						$(iframe).on('load', function() {
+							iframe.contentWindow.postMessage(message, "*");
+						});
+					}
 				}
 			}
+
     	});
   	});
 });

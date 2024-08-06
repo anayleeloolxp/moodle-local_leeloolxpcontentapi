@@ -27,21 +27,34 @@ defined('MOODLE_INTERNAL') || die();
 
 if ($hassiteconfig) {
 
-    require_once($CFG->dirroot . '/local/leeloolxpcontentapi/classes/leeloo_admin_setting_configcheckbox.php');
+	require_once($CFG->dirroot . '/local/leeloolxpcontentapi/classes/leeloo_admin_setting_configcheckbox.php');
 
-    $settings = new admin_settingpage('local_leeloolxpcontentapi', get_string('setting_title', 'local_leeloolxpcontentapi'));
+	$settings = new admin_settingpage('local_leeloolxpcontentapi', get_string('setting_title', 'local_leeloolxpcontentapi'));
 
-    $ADMIN->add('localplugins', $settings);
+	$ADMIN->add('localplugins', $settings);
 
-    $setting = new admin_setting_configcheckbox(
-        'local_leeloolxpcontentapi/enable',
-        get_string('enable', 'local_leeloolxpcontentapi'),
-        get_string('enablehelp', 'local_leeloolxpcontentapi'),
-        1
-    );
+	$setting = new admin_setting_configcheckbox(
+		'local_leeloolxpcontentapi/enable',
+		get_string('enable', 'local_leeloolxpcontentapi'),
+		get_string('enablehelp', 'local_leeloolxpcontentapi'),
+		1
+	);
 
-    $settings->add($setting);
+	$settings->add($setting);
 
-    $setting = new leeloo_admin_setting_configtext('local_leeloolxpcontentapi/leeloourl', '', '', '');
-    $settings->add($setting);
+	$setting = new leeloo_admin_setting_configtext('local_leeloolxpcontentapi/leeloourl', '', '', '');
+	$settings->add($setting);
+
+	$options = array(
+		'production' => get_string('production', 'local_leeloolxpcontentapi'),
+		'development' => get_string('development', 'local_leeloolxpcontentapi')
+	);
+
+	$settings->add(new admin_setting_configselect(
+		'local_leeloolxpcontentapi/buildtype',
+		get_string('buildtype', 'local_leeloolxpcontentapi'),
+		get_string('buildtype_desc', 'local_leeloolxpcontentapi'),
+		'production',
+		$options
+	));
 }

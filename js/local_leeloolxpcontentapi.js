@@ -1,3 +1,7 @@
+function setLeeloolxpUrl(Y, leeloolxpUrl) {
+	window.leeloolxpUrl = leeloolxpUrl;
+}
+
 require(["jquery"], function ($) {
   	$("#local_leeloolxpcontentapi_wrapper_close").click(function () {
 		$(".local_leeloolxpcontentapi_wrapper").removeClass("open");
@@ -54,8 +58,10 @@ require(["jquery"], function ($) {
 
 			var mootoolsresponseUp = btoa(JSON.stringify(mootoolsresponseDe));
 
+			console.log("Leeloo LXP URL:", window.leeloolxpUrl);
+
 			leeloolxpssourl =
-				"https://ivx.wespher.com?mootoolsleeloourl=" +
+				window.leeloolxpUrl + "?mootoolsleeloourl=" +
 				mootoolsleeloourl +
 				"&mootoolstoken=" +
 				mootoolstoken +

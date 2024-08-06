@@ -84,6 +84,12 @@ function local_leeloolxpcontentapi_before_footer() {
 
 						echo '<div id="leeloolxpcontentapi-js-vars" data-mootoolsleeloourl="' . base64_encode($mootoolsleeloourl) . '" data-mootoolstoken="' . $mootoolstoken . '" data-lang="' . $preferred_language . '" data-cmid="' . $cmid . '" data-sectionid="' . $sectionid . '" data-courseid="' . $courseid . '" data-mootoolsloginresponse="' . base64_encode($mootoolsloginresponse) . '"></div>';
 
+						$buildtype = get_config('local_leeloolxpcontentapi', 'buildtype');
+						$leeloolxpUrl = ($buildtype === 'development') ? 'https://ivxdev.wespher.com' : 'https://ivx.wespher.com';
+
+						// Pass the URL to JavaScript
+						$PAGE->requires->js_init_call('setLeeloolxpUrl', array($leeloolxpUrl));
+
 						$PAGE->requires->js(new moodle_url('/local/leeloolxpcontentapi/js/local_leeloolxpcontentapi.js'));
 						$logoUrl = new moodle_url('/local/leeloolxpcontentapi/images/logo.png');
 						echo '<button id="local_leeloolxpcontentapi_button"><img src="' . $logoUrl . '" style="width: 100%;height: auto;"></button>';

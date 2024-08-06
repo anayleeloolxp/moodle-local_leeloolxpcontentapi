@@ -30,5 +30,9 @@ $string['setting_title'] = 'Leeloo LXP Content API Plugin';
 
 $string['enable'] = 'Add Leeloo LXP drawer';
 $string['enablehelp'] = 'Add Leeloo LXP drawer';
+$string['buildtype'] = 'Build Type';
+$string['buildtype_desc'] = 'Select the build type for the plugin';
+$string['production'] = 'Production';
+$string['development'] = 'Development';
 
 $string['privacy:metadata'] = 'The Leeloo LXP Content API plugin does not store data itself.';

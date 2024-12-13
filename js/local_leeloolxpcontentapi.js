@@ -3,6 +3,21 @@ function setLeeloolxpUrl(Y, leeloolxpUrl) {
 }
 
 require(["jquery"], function ($) {
+
+	function utf8_to_b64(str) {
+		return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+			function toSolidBytes(match, p1) {
+				return String.fromCharCode('0x' + p1);
+		}));
+	}
+
+	// And for decoding, use this function
+	function b64_to_utf8(str) {
+		return decodeURIComponent(atob(str).split('').map(function(c) {
+			return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+		}).join(''));
+	}
+
   	$("#local_leeloolxpcontentapi_wrapper_close").click(function () {
 		$(".local_leeloolxpcontentapi_wrapper").removeClass("open");
 
@@ -44,7 +59,10 @@ require(["jquery"], function ($) {
 			let cmid = $("#leeloolxpcontentapi-js-vars").data("cmid");
 			let sectionid = $("#leeloolxpcontentapi-js-vars").data("sectionid");
 			let courseid = $("#leeloolxpcontentapi-js-vars").data("courseid");
+			let openpage = $("#leeloolxpcontentapi-js-vars").data("openpage");
 			let lang = $("#leeloolxpcontentapi-js-vars").data("lang");
+
+
 
 			var mootoolsresponseDe = JSON.parse(atob(mootoolsresponse));
 			if( lang != '' ){
@@ -54,11 +72,10 @@ require(["jquery"], function ($) {
 			mootoolsresponseDe.cmid = cmid;
 			mootoolsresponseDe.sectionid = sectionid;
 			mootoolsresponseDe.courseid = courseid;
+			mootoolsresponseDe.openpage = openpage;
 			mootoolsresponseDe.baseurl = mootoolsleeloourldecoded + '/';
 
-			var mootoolsresponseUp = btoa(JSON.stringify(mootoolsresponseDe));
-
-			console.log("Leeloo LXP URL:", window.leeloolxpUrl);
+			var mootoolsresponseUp = utf8_to_b64(JSON.stringify(mootoolsresponseDe));
 
 			leeloolxpssourl =
 				window.leeloolxpUrl + "?mootoolsleeloourl=" +

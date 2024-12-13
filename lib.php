@@ -34,7 +34,10 @@ function local_leeloolxpcontentapi_before_footer() {
 		$mootoolsloginresponse = $_COOKIE['mootools_login_response'];
 		$mootoolsloginresponsearr = json_decode($mootoolsloginresponse);
 		$mootoolstoken = $mootoolsloginresponsearr->token;
+		$sendcmid = $mootoolsloginresponsearr->cmid;
 	}
+
+	$openpage = 'home';
 
 	if ($mootoolsenable && $mootoolsleeloourl && $mootoolstoken) {
 		global $USER, $DB;
@@ -44,10 +47,12 @@ function local_leeloolxpcontentapi_before_footer() {
 
 			$context = $PAGE->context;
 
+			//$sendcmid = 0;
+			$sendsectionid = 0;
+			$sendcourseid = 0;
+
 			if ($context && $context->contextlevel == CONTEXT_MODULE) {
-
 				$cmid = $context->instanceid;
-
 				$module = get_coursemodule_from_id('', $cmid, 0, false, MUST_EXIST);
 
 				$sectionid = $module->section;
@@ -68,35 +73,40 @@ function local_leeloolxpcontentapi_before_footer() {
 
 				if (isset($res_arr->status) && isset($res_arr->status) != '') {
 					if ($res_arr->status == 'success') {
-
-						$user_lang = $DB->get_record_sql(
-							'SELECT u.lang AS preferred_language
-                             FROM {user} u
-                             WHERE u.id = :userid',
-							['userid' => $USER->id]
-						);
-
-						if ($user_lang) {
-							$preferred_language = $user_lang->preferred_language;
-						} else {
-							$preferred_language = "";
-						}
-
-						echo '<div id="leeloolxpcontentapi-js-vars" data-mootoolsleeloourl="' . base64_encode($mootoolsleeloourl) . '" data-mootoolstoken="' . $mootoolstoken . '" data-lang="' . $preferred_language . '" data-cmid="' . $cmid . '" data-sectionid="' . $sectionid . '" data-courseid="' . $courseid . '" data-mootoolsloginresponse="' . base64_encode($mootoolsloginresponse) . '"></div>';
-
-						$buildtype = get_config('local_leeloolxpcontentapi', 'buildtype');
-						$leeloolxpUrl = ($buildtype === 'development') ? 'https://ivxdev.wespher.com' : 'https://ivx.wespher.com';
-
-						// Pass the URL to JavaScript
-						$PAGE->requires->js_init_call('setLeeloolxpUrl', array($leeloolxpUrl));
-
-						$PAGE->requires->js(new moodle_url('/local/leeloolxpcontentapi/js/local_leeloolxpcontentapi.js'));
-						$logoUrl = new moodle_url('/local/leeloolxpcontentapi/images/logo.png');
-						echo '<button id="local_leeloolxpcontentapi_button"><img src="' . $logoUrl . '" style="width: 100%;height: auto;"></button>';
-						echo '<div class="local_leeloolxpcontentapi_wrapper"><div id="local_leeloolxpcontentapi_wrapper_close">X</div><div id="local_leeloolxpcontentapi_frame"></div></div>';
+						$sendcmid = $cmid;
+						$sendsectionid = $sectionid;
+						$sendcourseid = $courseid;
+						$openpage = 'chat';
 					}
 				}
 			}
+
+
+			$user_lang = $DB->get_record_sql(
+				'SELECT u.lang AS preferred_language
+                             FROM {user} u
+                             WHERE u.id = :userid',
+				['userid' => $USER->id]
+			);
+
+			if ($user_lang) {
+				$preferred_language = $user_lang->preferred_language;
+			} else {
+				$preferred_language = "";
+			}
+
+			echo '<div id="leeloolxpcontentapi-js-vars" data-mootoolsleeloourl="' . base64_encode($mootoolsleeloourl) . '" data-mootoolstoken="' . $mootoolstoken . '" data-lang="' . $preferred_language . '" data-cmid="' . $sendcmid . '" data-sectionid="' . $sendsectionid . '" data-courseid="' . $sendcourseid . '" data-openpage="' . $openpage . '" data-mootoolsloginresponse="' . base64_encode($mootoolsloginresponse) . '"></div>';
+
+			$buildtype = get_config('local_leeloolxpcontentapi', 'buildtype');
+			$leeloolxpUrl = ($buildtype === 'development') ? 'https://ivxdev.wespher.com' : 'https://ivx.wespher.com';
+
+			// Pass the URL to JavaScript
+			$PAGE->requires->js_init_call('setLeeloolxpUrl', array($leeloolxpUrl));
+
+			$PAGE->requires->js(new moodle_url('/local/leeloolxpcontentapi/js/local_leeloolxpcontentapi.js'));
+			$logoUrl = new moodle_url('/local/leeloolxpcontentapi/images/logo.png');
+			echo '<button id="local_leeloolxpcontentapi_button"><img src="' . $logoUrl . '" style="width: 100%;height: auto;"></button>';
+			echo '<div class="local_leeloolxpcontentapi_wrapper"><div id="local_leeloolxpcontentapi_wrapper_close">X</div><div id="local_leeloolxpcontentapi_frame"></div></div>';
 		}
 	}
 }

@@ -29,6 +29,7 @@
 function local_leeloolxpcontentapi_before_footer() {
 	$mootoolsenable = get_config('local_leeloolxpcontentapi')->enable;
 	$mootoolsleeloourl = get_config('local_leeloolxpcontentapi')->leeloourl;
+	$mootoolstoken = null;
 
 	if (isset($_COOKIE['mootools_login_response'])) {
 		$mootoolsloginresponse = $_COOKIE['mootools_login_response'];

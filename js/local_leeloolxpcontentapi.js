@@ -86,7 +86,7 @@ require(["jquery"], function ($) {
 				mootoolsresponseUp;
 
 			document.getElementById("local_leeloolxpcontentapi_frame").innerHTML =
-				'<iframe allow="camera; microphone" src="' +
+				'<iframe allow="camera; microphone" allowfullscreen="true" src="' +
 				leeloolxpssourl +
 				'" class="leeloolxpcontentapi_frame"></iframe>';
 		}
